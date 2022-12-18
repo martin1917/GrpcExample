@@ -1,0 +1,40 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcExample";
+
+import "google/protobuf/timestamp.proto";
+
+package films;
+
+service FilmProtoService {
+    rpc GetFilm(GetFilmRequest) returns (FilmModel);
+    rpc GetAllFilms(GetAllFilmsRequest) returns (stream FilmModel);
+    rpc AddFilm(AddFilmRequest) returns (FilmModel);
+    rpc DeleteFilm(DeleteFilmRequest) returns (DeleteFilmResponse);
+}
+
+message GetFilmRequest {
+	int32 filmId = 1;
+}
+
+message GetAllFilmsRequest {
+}
+
+message AddFilmRequest {
+    FilmModel film = 1;
+}
+
+message DeleteFilmRequest {
+    int32 filmId = 1;
+}
+
+message DeleteFilmResponse {
+  bool success = 1;
+}
+
+message FilmModel {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    google.protobuf.Timestamp releaseDate = 6;
+}
